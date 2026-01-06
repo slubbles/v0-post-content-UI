@@ -8,7 +8,7 @@ import { Button } from "@/components/ui/button"
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select"
 import { Switch } from "@/components/ui/switch"
 import { Separator } from "@/components/ui/separator"
-import { Loader2, Save, Key, User, Palette, Sparkles } from "lucide-react"
+import { Loader2, Save, User, Palette, Sparkles, Key } from "lucide-react"
 
 export function SettingsForm() {
   const [isSaving, setIsSaving] = useState(false)

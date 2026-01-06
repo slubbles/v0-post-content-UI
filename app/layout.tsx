@@ -43,7 +43,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className={`${manrope.variable} ${geistMono.variable} font-sans antialiased`}>
+      <body className={`${manrope.variable} ${geistMono.variable} font-sans antialiased overflow-x-hidden`}>
         {children}
         <Analytics />
         <Toaster />

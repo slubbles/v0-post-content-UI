@@ -8,7 +8,7 @@ import { AppNavigation } from "@/components/app-navigation"
 export default function LandingPage() {
   return (
     <div className="min-h-screen bg-background">
-      <AppNavigation />
+      <AppNavigation isAuthenticated={false} />
 
       {/* Hero Section */}
       <section className="mobile-safe-padding mx-auto max-w-7xl py-12 sm:py-20">
