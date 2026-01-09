@@ -14,7 +14,18 @@ import {
 } from "@/components/ui/dropdown-menu"
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
 import { Progress } from "@/components/ui/progress"
-import { Sparkles, MessageSquare, List, GraduationCap, History, Settings, LogOut, Home } from "lucide-react"
+import {
+  Sparkles,
+  MessageSquare,
+  List,
+  GraduationCap,
+  History,
+  Settings,
+  LogOut,
+  Home,
+  Crown,
+  User,
+} from "lucide-react"
 import Image from "next/image"
 
 const navItems = [
@@ -39,6 +50,7 @@ interface AppNavigationProps {
     name?: string
     email?: string
     image?: string
+    plan?: string
   }
 }
 
@@ -53,7 +65,7 @@ export function AppNavigation({ isAuthenticated = true, user }: AppNavigationPro
   const handleLogout = async () => {
     try {
       await fetch("/api/auth/logout", { method: "POST" })
-      router.push("/login")
+      router.push("/")
       router.refresh()
     } catch (error) {
       console.error("[v0] Logout error:", error)
@@ -73,6 +85,11 @@ export function AppNavigation({ isAuthenticated = true, user }: AppNavigationPro
       return user.email.charAt(0).toUpperCase()
     }
     return "U"
+  }
+
+  const getPlanBadge = () => {
+    const plan = user?.plan || "free"
+    return plan.charAt(0).toUpperCase() + plan.slice(1) + " Plan"
   }
 
   return (
@@ -121,6 +138,7 @@ export function AppNavigation({ isAuthenticated = true, user }: AppNavigationPro
           <div className="flex items-center gap-2">
             {isAuthenticated ? (
               <>
+                {/* Reorganized profile dropdown */}
                 <DropdownMenu>
                   <DropdownMenuTrigger asChild>
                     <Button variant="ghost" className="relative h-10 w-10 rounded-full">
@@ -132,7 +150,11 @@ export function AppNavigation({ isAuthenticated = true, user }: AppNavigationPro
                   </DropdownMenuTrigger>
                   <DropdownMenuContent className="w-72" align="end">
                     <DropdownMenuLabel>
-                      <div className="flex flex-col space-y-1">
+                      <div className="flex flex-col space-y-2">
+                        <div className="inline-flex w-fit items-center gap-1 rounded-full bg-primary/10 px-2 py-0.5 text-xs font-medium text-primary">
+                          {/* Backend will provide: {user.plan} */}
+                          {getPlanBadge()}
+                        </div>
                         <p className="text-sm font-medium leading-none">{user?.name || "User"}</p>
                         <p className="text-xs leading-none text-muted-foreground">
                           {user?.email || "user@example.com"}
@@ -141,6 +163,20 @@ export function AppNavigation({ isAuthenticated = true, user }: AppNavigationPro
                     </DropdownMenuLabel>
                     <DropdownMenuSeparator />
 
+                    <DropdownMenuItem asChild>
+                      <Link href="/dashboard/account" className="cursor-pointer">
+                        <User className="mr-2 h-4 w-4" />
+                        Profile
+                      </Link>
+                    </DropdownMenuItem>
+                    <DropdownMenuItem asChild>
+                      <Link href="/pricing" className="cursor-pointer text-primary font-medium">
+                        <Crown className="mr-2 h-4 w-4" />
+                        Upgrade Plan
+                      </Link>
+                    </DropdownMenuItem>
+
+                    <DropdownMenuSeparator />
                     <div className="px-2 py-3">
                       <div className="space-y-2">
                         <div className="flex items-center justify-between text-sm">
@@ -154,19 +190,6 @@ export function AppNavigation({ isAuthenticated = true, user }: AppNavigationPro
                       </div>
                     </div>
 
-                    <DropdownMenuSeparator />
-                    <DropdownMenuItem asChild>
-                      <Link href="/settings" className="cursor-pointer">
-                        <Settings className="mr-2 h-4 w-4" />
-                        Settings
-                      </Link>
-                    </DropdownMenuItem>
-                    <DropdownMenuItem asChild>
-                      <Link href="/history" className="cursor-pointer">
-                        <History className="mr-2 h-4 w-4" />
-                        History
-                      </Link>
-                    </DropdownMenuItem>
                     <DropdownMenuSeparator />
                     <DropdownMenuItem onClick={handleLogout} className="cursor-pointer text-destructive">
                       <LogOut className="mr-2 h-4 w-4" />
