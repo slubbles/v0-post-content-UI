@@ -10,8 +10,9 @@ const manrope = Manrope({ subsets: ["latin"], variable: "--font-sans" })
 const geistMono = Geist_Mono({ subsets: ["latin"], variable: "--font-mono" })
 
 export const metadata: Metadata = {
-  title: "Post Content - AI Social Media Generator",
-  description: "Create engaging social media posts in seconds. Stop overthinking, start posting.",
+  title: "PostContent - AI Content Generator for X/Twitter",
+  description:
+    "Generate X/Twitter posts in seconds. AI trained on your writing style. Create content that sounds like you, not ChatGPT.",
   generator: "v0.app",
   icons: {
     icon: [
@@ -42,7 +43,7 @@ export default function RootLayout({
   children: React.ReactNode
 }>) {
   return (
-    <html lang="en">
+    <html lang="en" className="dark">
       <body className={`${manrope.variable} ${geistMono.variable} font-sans antialiased overflow-x-hidden`}>
         {children}
         <Analytics />

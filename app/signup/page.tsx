@@ -1,15 +1,15 @@
 import { SignupForm } from "@/components/signup-form"
-import { ThemeToggle } from "@/components/theme-toggle"
 import Image from "next/image"
 import Link from "next/link"
+
+export const metadata = {
+  title: "Sign Up | Post Content - AI Social Media Content Generator",
+  description: "Create your free account and start generating engaging social media content in seconds",
+}
 
 export default function SignupPage() {
   return (
     <div className="mobile-safe-padding flex min-h-screen items-center justify-center bg-background">
-      <div className="fixed right-4 top-4 sm:right-6 sm:top-6">
-        <ThemeToggle />
-      </div>
-
       <div className="w-full max-w-md space-y-6 sm:space-y-8">
         <div className="text-center">
           <Link href="/" className="inline-block transition-opacity hover:opacity-80">
